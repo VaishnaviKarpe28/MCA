@@ -1,0 +1,19 @@
+#include <reg51.h>
+void delay(unsigned int t) // about t milliseconds (11.0592 MHz)
+{
+unsigned int i, j;
+for(i = 0; i < t; i++)
+for(j = 0; j < 1275; j++);
+}
+void main(void)
+{
+unsigned int count;
+while(1)
+{
+for(count = 0; count < 256; count++) // 0000 0000 to 1111 1111
+{
+P2 = count; // show count on LEDs
+delay(500);
+}
+}
+}

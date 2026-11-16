@@ -1,0 +1,22 @@
+#include <reg51.h>
+void delay(unsigned int t) // about t milliseconds (11.0592 MHz)
+{
+unsigned int i, j;
+for(i = 0; i < t; i++)
+for(j = 0; j < 1275; j++);
+}
+void main(void)
+{
+unsigned char seg_code[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99,
+0x92, 0x82, 0xF8, 0x80, 0x90}; // 0 = segment ON
+unsigned char k;
+while(1)
+{
+for(k = 0; k < 10; k++) // 0 to 9
+{
+P1 = seg_code[k]; // segment pattern on Port 1
+P2 = 0x01; // select one digit (P2.0)
+delay(1000);
+}
+}
+}

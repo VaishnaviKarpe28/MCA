@@ -1,0 +1,19 @@
+#include <reg51.h>
+void delay(unsigned int t) // about t milliseconds (11.0592 MHz)
+{
+unsigned int i, j;
+for(i = 0; i < t; i++)
+for(j = 0; j < 1275; j++);
+}
+void main(void)
+{
+unsigned char count;
+while(1)
+{
+for(count = 0; count < 100; count++) // 00 to 99
+{
+P2 = ((count / 10) << 4) | (count % 10); // tens: upper 4, units: lower 4
+delay(500);
+}
+}
+}

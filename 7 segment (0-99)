@@ -1,0 +1,30 @@
+#include <reg51.h>
+#define seg_unit 0x08 // P2.3 selects units digit
+#define seg_tens 0x04 // P2.2 selects tens digit
+void delay(void) // short delay for multiplexing
+{
+unsigned int i, j;
+for(i = 0; i < 15; i++)
+for(j = 0; j < 10; j++);
+}
+void main(void)
+{
+unsigned char seg_code[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99,
+0x92, 0x82, 0xF8, 0x80, 0x90}; // 0 = segment ON
+unsigned char cnt, i;
+while(1)
+{
+for(cnt = 0; cnt <= 99; cnt++) // 00 to 99
+{
+for(i = 0; i < 100; i++) // repeat so each number stays visible
+{
+P2 = seg_unit; // select units digit
+P1 = seg_code[cnt % 10]; // show units
+delay();
+P2 = seg_tens; // select tens digit
+P1 = seg_code[cnt / 10]; // show tens
+delay();
+}
+}
+}
+}
